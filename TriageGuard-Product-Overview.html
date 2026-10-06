@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TriageGuard — Product Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --surface2: #334155;
+    --text: #e2e8f0; --muted: #94a3b8; --accent: #3b82f6;
+    --accent2: #60a5fa; --green: #22c55e; --red: #ef4444;
+    --orange: #f97316; --yellow: #eab308;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.65; -webkit-font-smoothing: antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 60vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 40%, rgba(59,130,246,0.15) 0%, transparent 60%),
+                radial-gradient(circle at 70% 60%, rgba(34,197,94,0.08) 0%, transparent 50%);
+  }
+  .hero > * { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 999px; padding: 0.35rem 1rem; font-size: 0.8rem;
+    color: var(--accent2); font-weight: 500; margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p { max-width: 600px; color: var(--muted); font-size: 1.15rem; margin-bottom: 2rem; }
+  .hero-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent); color: #fff; padding: 0.75rem 2rem;
+    border-radius: 0.5rem; text-decoration: none; font-weight: 600;
+    font-size: 0.95rem; transition: background 0.2s;
+  }
+  .hero-link:hover { background: #2563eb; }
+
+  /* Sections */
+  section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+  section + section { border-top: 1px solid var(--surface2); }
+  h2 {
+    font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .section-sub { color: var(--muted); margin-bottom: 2rem; }
+
+  /* Cards */
+  .card-grid {
+    display: grid; gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .card {
+    background: var(--surface); border-radius: 0.75rem;
+    padding: 1.5rem; border: 1px solid var(--surface2);
+  }
+  .card-icon {
+    width: 2.5rem; height: 2.5rem; border-radius: 0.5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; margin-bottom: 0.75rem;
+  }
+  .card p { color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem; }
+
+  /* Screenshot gallery */
+  .gallery {
+    display: grid; gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+  .gallery figure { margin: 0; }
+  .gallery img {
+    width: 100%; border-radius: 0.75rem;
+    border: 1px solid var(--surface2); display: block;
+  }
+  .gallery figcaption {
+    margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); text-align: center;
+  }
+
+  /* Pipeline */
+  .pipeline {
+    display: flex; flex-wrap: wrap; gap: 0; align-items: stretch;
+    margin: 2rem 0;
+  }
+  .pipeline-step {
+    flex: 1; min-width: 160px; padding: 1.25rem;
+    background: var(--surface); position: relative; text-align: center;
+  }
+  .pipeline-step:first-child { border-radius: 0.75rem 0 0 0.75rem; }
+  .pipeline-step:last-child { border-radius: 0 0.75rem 0.75rem 0; }
+  .pipeline-step + .pipeline-step::before {
+    content: '→'; position: absolute; left: -0.75rem; top: 50%;
+    transform: translateY(-50%); color: var(--accent); font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .pipeline-num {
+    display: inline-flex; width: 1.75rem; height: 1.75rem;
+    align-items: center; justify-content: center; border-radius: 50%;
+    background: var(--accent); color: #fff; font-size: 0.8rem;
+    font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .pipeline-step h4 { font-size: 0.85rem; font-weight: 600; }
+  .pipeline-step p { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+  /* Team table */
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .team-card {
+    background: var(--surface); border-radius: 0.75rem;
+    padding: 1.5rem; text-align: center; border: 1px solid var(--surface2);
+  }
+  .team-card .avatar {
+    width: 3rem; height: 3rem; border-radius: 50%;
+    background: var(--accent); color: #fff; display: inline-flex;
+    align-items: center; justify-content: center; font-weight: 700;
+    font-size: 1.1rem; margin-bottom: 0.75rem;
+  }
+  .team-card .role { color: var(--muted); font-size: 0.8rem; }
+
+  /* Tech stack */
+  .tech-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .tech-pill {
+    background: var(--surface); border: 1px solid var(--surface2);
+    border-radius: 999px; padding: 0.35rem 1rem; font-size: 0.8rem;
+    color: var(--accent2); font-weight: 500;
+  }
+
+  /* Severity badges inline */
+  .badge {
+    display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 600; vertical-align: middle;
+  }
+  .badge-critical { background: var(--red); color: #fff; }
+  .badge-high { background: var(--orange); color: #fff; }
+  .badge-medium { background: var(--yellow); color: #000; }
+  .badge-low { background: var(--accent); color: #fff; }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 3rem 2rem; color: var(--muted);
+    font-size: 0.85rem; border-top: 1px solid var(--surface2);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .gallery { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .pipeline { flex-direction: column; }
+    .pipeline-step { border-radius: 0 !important; }
+    .pipeline-step + .pipeline-step::before {
+      content: '↓'; left: 50%; top: -0.75rem; transform: translateX(-50%);
+    }
+  }
+  @media print {
+    body { background: #fff; color: #1e293b; }
+    .hero { min-height: auto; background: #f8fafc; }
+    .hero h1 { font-size: 2.5rem; }
+    .card, .pipeline-step, .team-card { border-color: #e2e8f0; background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Hero ═══════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Alibaba Qoder AI Hackathon 2026
+  </div>
+  <h1>Triage<span>Guard</span></h1>
+  <p>AI-powered incident triage with human-in-the-loop approval. Submit an incident, let AI extract details, classify severity, match policies, and draft a report — then a human reviewer approves or escalates.</p>
+  <a class="hero-link" href="https://triageguard-ai-6npvo6evsn1.qoder.website" target="_blank">
+    Open Live App →
+  </a>
+</header>
+
+<!-- ═══ The Problem ═══════════════════════════════════════════════════════ -->
+<section>
+  <h2>The Problem</h2>
+  <p class="section-sub">Incident triage today is slow, inconsistent, and error-prone.</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon" style="background:rgba(239,68,68,0.15);color:var(--red);">⏱</div>
+      <h3>Slow Response</h3>
+      <p>Manual triage can take hours or days. Critical incidents sit in queues while responders manually classify, cross-reference policies, and draft reports.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(249,115,22,0.15);color:var(--orange);">🎯</div>
+      <h3>Inconsistent Classification</h3>
+      <p>Different reviewers apply different severity levels to similar incidents. Without standardized extraction, key details are missed or misinterpreted.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(234,179,8,0.15);color:var(--yellow);">📋</div>
+      <h3>No Audit Trail</h3>
+      <p>Actions taken during triage are poorly documented. When regulators or internal auditors ask "who decided what and when?", the answers are scattered.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AI Triage Pipeline ════════════════════════════════════════════════ -->
+<section>
+  <h2>AI Triage Pipeline</h2>
+  <p class="section-sub">Every incident passes through a four-stage AI pipeline before human review.</p>
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-num">1</div>
+      <h4>Extract</h4>
+      <p>AI reads the raw report and pulls out date, location, people, type, and immediate risk.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">2</div>
+      <h4>Classify</h4>
+      <p>Assigns severity (<span class="badge badge-critical">Critical</span> <span class="badge badge-high">High</span> <span class="badge badge-medium">Medium</span> <span class="badge badge-low">Low</span>), category, and confidence score.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">3</div>
+      <h4>Policy Match</h4>
+      <p>RAG retrieval finds the most relevant company policy documents and excerpts for the incident type.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num">4</div>
+      <h4>Draft Report</h4>
+      <p>Generates an editable report with summary, recommended actions, assigned owners, and deadlines.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Features ══════════════════════════════════════════════════════════ -->
+<section>
+  <h2>Key Features</h2>
+  <p class="section-sub">Everything a triage team needs in one dashboard.</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon" style="background:rgba(59,130,246,0.15);color:var(--accent);">📊</div>
+      <h3>Real-Time Dashboard</h3>
+      <p>At-a-glance view of all incidents with color-coded severity badges, confidence bars, and status filters. Desktop table + mobile card views.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(34,197,94,0.15);color:var(--green);">📝</div>
+      <h3>Smart Submission Form</h3>
+      <p>Describe an incident in plain text, drag & drop photos or video evidence (JPG, PNG, MP4), and let AI do the rest.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(249,115,22,0.15);color:var(--orange);">🔍</div>
+      <h3>Human Review & Approval</h3>
+      <p>Reviewers see AI-extracted fields, matched policies, and the draft report. Edit any field, then approve, save, or escalate — all logged.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(168,85,247,0.15);color:#a855f7;">📜</div>
+      <h3>Complete Audit Log</h3>
+      <p>Every action is timestamped and attributed. Full chronological trail across all incidents for compliance and accountability.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(234,179,8,0.15);color:var(--yellow);">🌓</div>
+      <h3>Light & Dark Mode</h3>
+      <p>Toggle between light, dark, and system themes. Persisted to localStorage so it sticks across sessions.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:rgba(59,130,246,0.15);color:var(--accent2);">📱</div>
+      <h3>Fully Responsive</h3>
+      <p>Desktop sidebar collapses to mobile header + bottom tab bar. Tables become card views. Action buttons stack vertically. Works on any device.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Screenshots ═══════════════════════════════════════════════════════ -->
+<section>
+  <h2>Screenshots</h2>
+  <p class="section-sub">Desktop and mobile views in light and dark themes.</p>
+  <div class="gallery">
+    <figure>
+      <img src="screenshots/triageguard-desktop-dashboard-light.png" alt="Dashboard — Light" />
+      <figcaption>Dashboard — Light Mode (Desktop)</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/triageguard-desktop-dashboard-dark.png" alt="Dashboard — Dark" />
+      <figcaption>Dashboard — Dark Mode (Desktop)</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/triageguard-desktop-submit-light.png" alt="Submit — Light" />
+      <figcaption>Incident Submission with Drag & Drop — Light</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/triageguard-desktop-review-critical-light.png" alt="Review — Light" />
+      <figcaption>Critical Incident Review — Light</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/triageguard-desktop-audit-dark.png" alt="Audit — Dark" />
+      <figcaption>Audit Log — Dark Mode (Desktop)</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/triageguard-mobile-dashboard-dark.png" alt="Mobile Dashboard — Dark" />
+      <figcaption>Mobile Dashboard — Dark</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/triageguard-mobile-submit-light.png" alt="Mobile Submit — Light" />
+      <figcaption>Mobile Submission — Light</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/triageguard-mobile-review-critical-dark.png" alt="Mobile Review — Dark" />
+      <figcaption>Mobile Critical Review — Dark</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ═══ Tech Stack ════════════════════════════════════════════════════════ -->
+<section>
+  <h2>Tech Stack</h2>
+  <p class="section-sub">Modern frontend deployed on Qoder Sites.</p>
+  <div class="tech-pills">
+    <span class="tech-pill">React 19</span>
+    <span class="tech-pill">TypeScript</span>
+    <span class="tech-pill">Vite 8</span>
+    <span class="tech-pill">Tailwind CSS v4</span>
+    <span class="tech-pill">shadcn/ui</span>
+    <span class="tech-pill">Lucide Icons</span>
+    <span class="tech-pill">date-fns</span>
+    <span class="tech-pill">Qoder Sites (hosting)</span>
+    <span class="tech-pill">Qwen (backend AI — Seth)</span>
+  </div>
+  <div class="card" style="margin-top:1.5rem;">
+    <h3>Architecture</h3>
+    <p>Client-side React SPA with hash-based routing. State management via React Context + useReducer. Demo AI pipeline uses keyword-based extraction and classification (Seth's secure Qwen backend handles real AI inference). Policy matching against 7 embedded compliance documents. All data stored in-memory for the demo; production would use a persistent backend.</p>
+  </div>
+</section>
+
+<!-- ═══ Team ══════════════════════════════════════════════════════════════ -->
+<section>
+  <h2>Team</h2>
+  <p class="section-sub">Built in one day for the Alibaba Qoder AI Hackathon.</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="avatar">J</div>
+      <h3>Joaquin</h3>
+      <div class="role">UI / Branding / Screenshots / Demo</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar">S</div>
+      <h3>Seth</h3>
+      <div class="role">Secure Qwen Backend / API / Security</div>
+    </div>
+    <div class="team-card">
+      <div class="avatar">H</div>
+      <h3>Hans</h3>
+      <div class="role">Policy Documents / Validation / Evidence</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Links ═════════════════════════════════════════════════════════════ -->
+<section style="text-align:center;">
+  <h2>Try It Live</h2>
+  <p class="section-sub">The app is deployed and publicly accessible.</p>
+  <a class="hero-link" href="https://triageguard-ai-6npvo6evsn1.qoder.website" target="_blank" style="margin-right:1rem;">
+    Open TriageGuard →
+  </a>
+  <a class="hero-link" href="https://triageguard-ai-6npvo6evsn1.qoder.website#submit" target="_blank" style="background:var(--green);">
+    Submit a Demo Incident →
+  </a>
+</section>
+
+<footer>
+  <p>TriageGuard — AI Incident & Compliance Triage Agent</p>
+  <p style="margin-top:0.25rem;">Alibaba Qoder AI Hackathon · October 2026</p>
+</footer>
+
+</body>
+</html>
